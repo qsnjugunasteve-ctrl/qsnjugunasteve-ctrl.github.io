@@ -24,15 +24,25 @@ header {
 }
 
 header h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
+    font-size: 40px;
+    margin: 0 0 10px;
 }
 
 header .role {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     margin: 0 0 10px;
-    opacity: 0.9;
+}
+
+header .focus {
+    margin: 0 0 12px;
+    opacity: 0.85;
+}
+
+header .pitch {
+    max-width: 600px;
+    margin: 0 auto 22px;
+    font-size: 18px;
 }
 
 .profile-photo {
@@ -47,8 +57,8 @@ header .role {
 /* Download CV button */
 .cv-button {
     display: inline-block;
-    margin-top: 15px;
     padding: 12px 28px;
+    border: 2px solid #c0392b;
     background-color: #c0392b;
     color: white;
     text-decoration: none;
@@ -59,6 +69,58 @@ header .role {
 
 .cv-button:hover {
     background-color: #a93226;
+    border-color: #a93226;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.outline-button {
+    display: inline-block;
+    padding: 12px 28px;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.outline-button:hover {
+    background-color: #ffffff;
+    color: #102a43;
+}
+
+/* Quick facts strip */
+.facts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.fact {
+    background-color: white;
+    padding: 18px 16px;
+    border-top: 4px solid #c0392b;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.fact strong {
+    display: block;
+    color: #102a43;
+    font-size: 17px;
+    margin-bottom: 4px;
+}
+
+.fact span {
+    color: #5f7285;
+    font-size: 14px;
 }
 
 /* 3. Navigation menu (sticky) */
@@ -239,6 +301,23 @@ footer {
 
     #services {
         grid-template-columns: 1fr;
+    }
+
+    header .pitch {
+        font-size: 16px;
+    }
+
+    .facts {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .fact {
+        padding: 14px 10px;
+    }
+
+    .fact strong {
+        font-size: 15px;
     }
 
     .floating-contact {
