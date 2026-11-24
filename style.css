@@ -1,7 +1,10 @@
-
 /* 1. General website styling */
 * {
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -25,11 +28,48 @@ header h1 {
     margin-bottom: 10px;
 }
 
-/* 3. Navigation menu */
+header .role {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    opacity: 0.9;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #c0392b;
+    margin-bottom: 15px;
+}
+
+/* Download CV button */
+.cv-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 28px;
+    background-color: #c0392b;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.cv-button:hover {
+    background-color: #a93226;
+}
+
+/* 3. Navigation menu (sticky) */
 nav {
     background-color: #ffffff;
     text-align: center;
     padding: 18px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 nav a {
@@ -37,6 +77,10 @@ nav a {
     text-decoration: none;
     margin: 0 12px;
     font-weight: bold;
+}
+
+nav a:hover {
+    color: #c0392b;
 }
 
 /* 4. Main content */
@@ -51,53 +95,30 @@ section {
     padding: 30px;
     margin-bottom: 20px;
     border-radius: 8px;
+    scroll-margin-top: 70px;
 }
 
 /* 5. Section headings */
 section h2 {
     color: #102a43;
+    border-bottom: 3px solid #c0392b;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-/* 6. Footer */
-footer {
-    background-color: #102a43;
-    color: white;
-    text-align: center;
+/* Service, project and experience articles */
+article {
+    background-color: #f8fafc;
     padding: 20px;
-}
-/* Smooth scrolling and sticky nav */
-html {
-    scroll-behavior: smooth;
-}
-
-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin: 15px 0;
+    border-left: 4px solid #c0392b;
+    border-radius: 5px;
 }
 
-section {
-    scroll-margin-top: 70px;
-}
-
-/* Keyboard focus */
-a:focus-visible {
-    outline: 3px solid #c0392b;
-    outline-offset: 3px;
-}
-
-/* Header tagline (use <p class="role"> instead of the second <h2>) */
-header .role {
-    font-size: 20px;
+.meta {
+    color: #5f7285;
+    font-size: 14px;
     margin: 0 0 10px;
-    opacity: 0.9;
-}
-
-/* Contact and content links */
-section a {
-    color: #c0392b;
-    font-weight: bold;
 }
 
 /* Services in two columns on desktop */
@@ -109,6 +130,7 @@ section a {
 
 #services h2 {
     grid-column: 1 / -1;
+    margin-bottom: 5px;
 }
 
 #services article {
@@ -131,40 +153,57 @@ section a {
     border-radius: 20px;
     font-size: 14px;
 }
+
 #skills li.highlight {
     background-color: #c0392b;
     color: white;
     font-weight: bold;
 }
-.meta {
-    color: #5f7285;
-    font-size: 14px;
-    margin: 0 0 10px;
+
+/* Links */
+a {
+    transition: color 0.3s ease;
 }
-.profile-photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #c0392b;
-    margin-bottom: 15px;
-}
-.cv-button {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 12px 28px;
-    background-color: #c0392b;
-    color: white;
-    text-decoration: red;
+
+section a {
+    color: #c0392b;
     font-weight: bold;
-    border-radius: 6px;
+}
+
+a:focus-visible {
+    outline: 3px solid #c0392b;
+    outline-offset: 3px;
+}
+
+/* 6. Footer */
+footer {
+    background-color: #102a43;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Floating WhatsApp button */
+.floating-contact {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 200;
+    background-color: #25d366;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
     transition: background-color 0.3s ease;
 }
 
-.cv-button:hover {
-    background-color: #a93226;
+.floating-contact:hover {
+    background-color: #1ebe5a;
 }
-/* Responsive design for mobile phones */
+
+/* Responsive design for mobile phones (keep this block last) */
 @media screen and (max-width: 600px) {
 
     header {
@@ -173,6 +212,15 @@ section a {
 
     header h1 {
         font-size: 26px;
+    }
+
+    header .role {
+        font-size: 17px;
+    }
+
+    .profile-photo {
+        width: 120px;
+        height: 120px;
     }
 
     nav a {
@@ -188,58 +236,15 @@ section a {
     section {
         padding: 20px;
     }
-        #services {
+
+    #services {
         grid-template-columns: 1fr;
     }
 
-}
-
-/* Improve section headings */
-section h2 {
-    border-bottom: 3px solid #c0392b;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-/* Improve service and project articles */
-article {
-    background-color: #f8fafc;
-    padding: 20px;
-    margin: 15px 0;
-    border-left: 4px solid #c0392b;
-    border-radius: 5px;
-}
-
-/* Navigation hover effect */
-nav a:hover {
-    color: #c0392b;
-}
-
-/* Improve links */
-a {
-    transition: color 0.3s ease;
-}
-    .profile-photo {
-        width: 120px;
-        height: 120px;
+    .floating-contact {
+        right: 12px;
+        bottom: 12px;
+        padding: 10px 16px;
+        font-size: 14px;
     }
-
-.floating-contact {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background-color: #25D366;
-    color: white;
-    padding: 15px 22px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.floating-contact:hover {
-    transform: translateY(-4px);
-    background-color: #1da851;
 }
