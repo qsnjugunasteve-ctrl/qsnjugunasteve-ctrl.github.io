@@ -208,3 +208,23 @@ a {
         width: 120px;
         height: 120px;
     }
+
+.floating-contact {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #25D366;
+    color: white;
+    padding: 15px 22px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.floating-contact:hover {
+    transform: translateY(-4px);
+    background-color: #1da851;
+}
