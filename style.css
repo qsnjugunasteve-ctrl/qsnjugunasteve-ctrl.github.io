@@ -1,4 +1,27 @@
-/* 1. General website styling */
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;600;700&display=swap");
+
+/* ------------------------------------------------------------------
+   Design idea: a quantity surveyor's drawing sheet.
+   Blueprint-blue header with grid, red "mark-up" dimension lines,
+   a title-block facts strip, and a project timeline.
+------------------------------------------------------------------- */
+
+:root {
+    --blueprint: #0b2540;
+    --blueprint-soft: #10304f;
+    --paper: #eef2f6;
+    --sheet: #ffffff;
+    --ink: #14212d;
+    --muted: #4f6275;
+    --hairline: #cfd9e2;
+    --chip: #e3edf5;
+    --redline: #c0392b;
+    --redline-dark: #a52f23;
+    --redline-light: #ff7a66;
+    --display: "Barlow Condensed", "Arial Narrow", "Segoe UI", sans-serif;
+    --body: "Public Sans", "Segoe UI", Arial, sans-serif;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -9,321 +32,557 @@ html {
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
-    color: #263238;
-    line-height: 1.6;
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.65;
+    background-color: var(--paper);
+    color: var(--ink);
 }
 
-/* 2. Website header */
+/* ---------- Header: the drawing sheet ---------- */
 header {
-    background-color: #102a43;
-    color: white;
-    text-align: center;
-    padding: 60px 20px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(5, auto);
+    align-content: center;
+    column-gap: 44px;
+    padding: 76px max(20px, calc((100% - 1000px) / 2)) 80px;
+    color: #ffffff;
+    text-align: left;
+    background-color: var(--blueprint);
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
 }
 
-header h1 {
-    font-size: 40px;
-    margin: 0 0 10px;
-}
-
-header .role {
-    font-size: 22px;
-    font-weight: bold;
-    margin: 0 0 10px;
-}
-
-header .focus {
-    margin: 0 0 12px;
-    opacity: 0.85;
-}
-
-header .pitch {
-    max-width: 600px;
-    margin: 0 auto 22px;
-    font-size: 18px;
+header > :not(img) {
+    grid-column: 2;
 }
 
 .profile-photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+    grid-column: 1;
+    grid-row: 1 / span 5;
+    align-self: center;
+    width: 180px;
+    height: 224px;
     object-fit: cover;
-    border: 4px solid #c0392b;
-    margin-bottom: 15px;
+    object-position: center 25%;
+    border: 3px solid #ffffff;
+    border-radius: 4px;
+    outline: 2px solid var(--redline-light);
+    outline-offset: 7px;
+    margin: 0;
 }
 
-/* Download CV button */
-.cv-button {
-    display: inline-block;
-    padding: 12px 28px;
-    border: 2px solid #c0392b;
-    background-color: #c0392b;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
+header h1 {
+    position: relative;
+    justify-self: start;
+    margin: 0 0 14px;
+    padding-bottom: 16px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.8rem, 7vw, 4.6rem);
+    line-height: 1;
+    letter-spacing: 0.01em;
 }
 
-.cv-button:hover {
-    background-color: #a93226;
-    border-color: #a93226;
+/* Dimension line under the name: the one animated moment on the page */
+header h1::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 12px;
+    background:
+        linear-gradient(var(--redline-light), var(--redline-light)) center / 100% 2px no-repeat,
+        linear-gradient(var(--redline-light), var(--redline-light)) left / 2px 100% no-repeat,
+        linear-gradient(var(--redline-light), var(--redline-light)) right / 2px 100% no-repeat;
+    transform-origin: left center;
+    animation: measure 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both;
 }
 
+@keyframes measure {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+header .role {
+    margin: 0 0 6px;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    color: #dbe8f4;
+}
+
+header .focus {
+    margin: 0 0 14px;
+    font-size: 0.95rem;
+    color: #a9bfd4;
+}
+
+header .pitch {
+    max-width: 52ch;
+    margin: 0 0 26px;
+    font-size: 1.1rem;
+    color: #eef4fa;
+}
+
+/* ---------- Buttons ---------- */
 .hero-buttons {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     gap: 12px;
 }
 
+.cv-button,
 .outline-button {
     display: inline-block;
-    padding: 12px 28px;
-    border: 2px solid #ffffff;
-    color: #ffffff;
+    padding: 12px 26px;
+    border: 2px solid var(--redline);
+    border-radius: 4px;
+    font-weight: 700;
     text-decoration: none;
-    font-weight: bold;
-    border-radius: 6px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.cv-button {
+    background-color: var(--redline);
+    color: #ffffff;
+}
+
+.cv-button:hover {
+    background-color: var(--redline-dark);
+    border-color: var(--redline-dark);
+}
+
+.outline-button {
+    border-color: #dbe8f4;
+    color: #ffffff;
 }
 
 .outline-button:hover {
     background-color: #ffffff;
-    color: #102a43;
+    color: var(--blueprint);
 }
 
-/* Quick facts strip */
+/* ---------- Navigation ---------- */
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px 8px;
+    padding: 6px 12px;
+    background-color: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--hairline);
+}
+
+nav a {
+    padding: 12px 14px 9px;
+    border-bottom: 3px solid transparent;
+    color: var(--blueprint);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+nav a:hover {
+    border-bottom-color: var(--redline);
+    color: var(--redline-dark);
+}
+
+/* ---------- Main layout ---------- */
+main {
+    max-width: 1000px;
+    margin: 32px auto;
+    padding: 0 20px;
+}
+
+/* Title block: key facts, like the corner of a drawing sheet */
 .facts {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 1px;
+    margin-bottom: 24px;
+    background-color: var(--blueprint-soft);
+    border: 2px solid var(--blueprint-soft);
 }
 
 .fact {
-    background-color: white;
-    padding: 18px 16px;
-    border-top: 4px solid #c0392b;
-    border-radius: 8px;
-    text-align: center;
+    padding: 16px 18px;
+    background-color: var(--sheet);
+    text-align: left;
 }
 
 .fact strong {
     display: block;
-    color: #102a43;
-    font-size: 17px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.45rem;
+    line-height: 1.15;
+    color: var(--blueprint);
 }
 
 .fact span {
-    color: #5f7285;
-    font-size: 14px;
+    font-size: 0.88rem;
+    color: var(--muted);
 }
 
-/* 3. Navigation menu (sticky) */
-nav {
-    background-color: #ffffff;
-    text-align: center;
-    padding: 18px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-nav a {
-    color: #102a43;
-    text-decoration: none;
-    margin: 0 12px;
-    font-weight: bold;
-}
-
-nav a:hover {
-    color: #c0392b;
-}
-
-/* 4. Main content */
-main {
-    max-width: 1000px;
-    margin: 30px auto;
-    padding: 0 20px;
-}
-
+/* ---------- Sections ---------- */
 section {
-    background-color: white;
-    padding: 30px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    scroll-margin-top: 70px;
+    margin-bottom: 24px;
+    padding: 34px 36px;
+    background-color: var(--sheet);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    scroll-margin-top: 76px;
 }
 
-/* 5. Section headings */
+/* Section headings carry a red dimension line */
 section h2 {
-    color: #102a43;
-    border-bottom: 3px solid #c0392b;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    position: relative;
+    margin: 0 0 24px;
+    padding-bottom: 16px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 2.1rem;
+    line-height: 1.1;
+    color: var(--blueprint);
 }
 
-/* Service, project and experience articles */
-article {
-    background-color: #f8fafc;
-    padding: 20px;
-    margin: 15px 0;
-    border-left: 4px solid #c0392b;
-    border-radius: 5px;
+section h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 12px;
+    background:
+        linear-gradient(var(--redline), var(--redline)) center / 100% 2px no-repeat,
+        linear-gradient(var(--redline), var(--redline)) left / 2px 100% no-repeat,
+        linear-gradient(var(--redline), var(--redline)) right / 2px 100% no-repeat;
 }
 
-.meta {
-    color: #5f7285;
-    font-size: 14px;
-    margin: 0 0 10px;
+section h3 {
+    margin: 0 0 8px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    color: var(--blueprint);
 }
 
-/* Services in two columns on desktop */
+section p {
+    margin: 0 0 14px;
+}
+
+/* About */
+#about p {
+    max-width: 70ch;
+}
+
+#about p:first-of-type {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+/* Services */
 #services {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 16px;
 }
 
 #services h2 {
     grid-column: 1 / -1;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 #services article {
     margin: 0;
+    padding: 20px 22px;
+    background-color: #f6f9fb;
+    border: 1px solid var(--hairline);
+    border-top: 3px solid var(--blueprint-soft);
 }
 
-/* Skills as chips */
+#services article p {
+    margin: 0;
+    color: var(--muted);
+}
+
+/* Skills */
+#skills h3 {
+    margin-top: 22px;
+}
+
 #skills ul {
-    list-style: none;
-    padding: 0;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 #skills li {
-    background-color: #e8eef5;
-    color: #102a43;
     padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 14px;
+    background-color: var(--chip);
+    border: 1px solid #c5d6e6;
+    border-radius: 3px;
+    font-size: 0.92rem;
+    color: var(--blueprint);
 }
 
 #skills li.highlight {
-    background-color: #c0392b;
-    color: white;
-    font-weight: bold;
+    background-color: var(--blueprint-soft);
+    border-color: var(--blueprint-soft);
+    border-left: 4px solid var(--redline-light);
+    color: #ffffff;
+    font-weight: 700;
 }
 
-/* Links */
-a {
-    transition: color 0.3s ease;
+/* Projects: a timeline, newest first */
+#projects article {
+    position: relative;
+    margin: 0 0 30px 8px;
+    padding: 0 0 0 28px;
+    border-left: 2px solid #b7c6d4;
 }
 
+#projects article:last-child {
+    margin-bottom: 0;
+}
+
+#projects article::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 7px;
+    width: 14px;
+    height: 14px;
+    background-color: var(--redline);
+    transform: rotate(45deg);
+}
+
+.meta {
+    margin: 0 0 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+#projects ul {
+    margin: 10px 0 0;
+    padding-left: 20px;
+}
+
+#projects li {
+    margin-bottom: 6px;
+}
+
+#projects li::marker {
+    color: var(--redline);
+}
+
+/* Contact */
+#contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+}
+
+#contact h2,
+#contact p:first-of-type {
+    grid-column: 1 / -1;
+}
+
+#contact p:not(:first-of-type) {
+    margin: 0;
+    padding: 14px 0;
+    border-top: 1px solid var(--hairline);
+    font-size: 1.05rem;
+}
+
+#contact strong {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+/* ---------- Links and focus ---------- */
 section a {
-    color: #c0392b;
-    font-weight: bold;
+    color: var(--redline-dark);
+    font-weight: 700;
+    text-underline-offset: 3px;
+}
+
+section a:hover {
+    color: var(--blueprint);
 }
 
 a:focus-visible {
-    outline: 3px solid #c0392b;
+    outline: 3px solid var(--redline);
     outline-offset: 3px;
 }
 
-/* 6. Footer */
-footer {
-    background-color: #102a43;
-    color: white;
-    text-align: center;
-    padding: 20px;
+header a:focus-visible {
+    outline-color: var(--redline-light);
 }
 
-/* Floating WhatsApp button */
+/* ---------- Footer ---------- */
+footer {
+    padding: 22px 20px;
+    background-color: var(--blueprint);
+    border-top: 4px solid var(--redline);
+    color: #dbe8f4;
+    text-align: center;
+    font-size: 0.92rem;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ---------- Floating WhatsApp button ---------- */
 .floating-contact {
     position: fixed;
     right: 20px;
-    bottom: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     z-index: 200;
-    background-color: #25d366;
-    color: #ffffff;
     padding: 12px 20px;
+    background-color: #11803f;
     border-radius: 30px;
-    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    color: #ffffff;
+    font-weight: 700;
     text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease;
 }
 
 .floating-contact:hover {
-    background-color: #1ebe5a;
+    background-color: #0d6a34;
 }
 
-/* Responsive design for mobile phones (keep this block last) */
-@media screen and (max-width: 600px) {
+.floating-contact:focus-visible {
+    outline-color: var(--blueprint);
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    header h1::after {
+        animation: none;
+    }
+}
+
+/* ---------- Mobile (keep this block last) ---------- */
+@media screen and (max-width: 700px) {
 
     header {
-        padding: 35px 15px;
-    }
-
-    header h1 {
-        font-size: 26px;
-    }
-
-    header .role {
-        font-size: 17px;
+        display: block;
+        padding: 40px 20px 48px;
+        text-align: center;
     }
 
     .profile-photo {
-        width: 120px;
-        height: 120px;
+        display: block;
+        width: 140px;
+        height: 175px;
+        margin: 0 auto 26px;
+        outline-offset: 6px;
     }
 
-    nav a {
-        display: inline-block;
-        margin: 6px;
-        font-size: 14px;
+    header h1 {
+        font-size: 2.6rem;
+        margin-bottom: 12px;
     }
 
-    main {
-        padding: 0 12px;
-    }
-
-    section {
-        padding: 20px;
-    }
-
-    #services {
-        grid-template-columns: 1fr;
+    header .role {
+        font-size: 1.3rem;
     }
 
     header .pitch {
-        font-size: 16px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    nav {
+        padding: 4px 8px;
+        gap: 0 2px;
+    }
+
+    nav a {
+        padding: 10px 9px 8px;
+        font-size: 0.9rem;
+    }
+
+    main {
+        margin: 20px auto;
+        padding: 0 12px;
     }
 
     .facts {
         grid-template-columns: 1fr 1fr;
-        gap: 10px;
     }
 
     .fact {
-        padding: 14px 10px;
+        padding: 12px 12px;
     }
 
     .fact strong {
-        font-size: 15px;
+        font-size: 1.2rem;
+    }
+
+    .fact span {
+        font-size: 0.82rem;
+    }
+
+    section {
+        padding: 24px 20px;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+    }
+
+    #services,
+    #contact {
+        grid-template-columns: 1fr;
+    }
+
+    #projects article {
+        padding-left: 22px;
     }
 
     .floating-contact {
         right: 12px;
-        bottom: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px));
         padding: 10px 16px;
-        font-size: 14px;
+        font-size: 0.9rem;
     }
 }
